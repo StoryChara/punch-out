@@ -4,7 +4,6 @@ let score, life_pj, life_enemy;
 let menu;
 
 function preload() {
-  // Carga la imagen y la fuente aquí
   backgroundImg = loadImage('sprites/scenario.png');
   pixelFont = loadFont('resources/VT323-Regular.ttf');
 }
@@ -26,10 +25,11 @@ function start_menu() {
   background(18, 18, 18);
   textFont(pixelFont);
   fill(255);
-  textSize(32);
-  text("Punch-Out!!!", 100, 50);
+  textSize(64);
+  textAlign(CENTER, CENTER); 
+  text("Punch-Out!!!", width / 2, height / 4);
   textSize(16);
-  text("Press ENTER to Start", 130, 150);
+  text("Press ENTER to Start", width / 2, height / 2); 
 }
 
 function fight_menu() {
