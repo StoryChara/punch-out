@@ -5,8 +5,8 @@ let menu;
 
 function preload() {
   // Carga la imagen y la fuente aquí
-  backgroundImg = loadImage('/sprites/scenario.png');
-  pixelFont = loadFont('/resources/VT323-Regular.ttf');
+  backgroundImg = loadImage('sprites/scenario.png');
+  pixelFont = loadFont('resources/VT323-Regular.ttf');
 }
 
 function setup() {
