@@ -2,6 +2,7 @@ let backgroundImg;
 let pixelFont;
 let score, life_pj, life_enemy;
 let menu;
+let angle = 0;
 
 function preload() {
   backgroundImg = loadImage('sprites/scenario.png');
@@ -23,11 +24,13 @@ function draw() {
 
 function start_menu() {
   background(18, 18, 18);
+  let yOffset = sin(angle) * 10;
+  angle += 0.05;
   textFont(pixelFont);
   fill(255);
   textSize(64);
   textAlign(CENTER, CENTER); 
-  text("Punch-Out!!!", width / 2, height / 4);
+  text("Punch-Out!!!", width / 2, height / 4 + yOffset);
   textSize(16);
   text("Press ENTER to Start", width / 2, height / 2); 
 }
