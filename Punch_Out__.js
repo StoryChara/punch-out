@@ -24,15 +24,31 @@ function draw() {
 
 function start_menu() {
   background(18, 18, 18);
+  drawGrid();
   let yOffset = sin(angle) * 10;
   angle += 0.05;
   textFont(pixelFont);
-  fill(255);
-  textSize(64);
+  fill(235, 154, 2); stroke(235,154, 2); strokeWeight(2); textSize(64);
   textAlign(CENTER, CENTER); 
   text("Punch-Out!!!", width / 2, height / 4 + yOffset);
-  textSize(16);
+  fill(255); stroke(0); strokeWeight(0); textSize(16);
   text("Press ENTER to Start", width / 2, height / 2); 
+}
+
+function drawGrid() {
+  let gridYStart = height / 4 - 50;
+  let gridYEnd = height / 4 + 50; 
+
+  stroke(0, 0, 255);
+  strokeWeight(1);
+  
+  for (let x = 0; x < width; x += 10) {
+    line(x, gridYStart, x, gridYEnd);
+  }
+  
+  for (let y = gridYStart; y <= gridYEnd; y += 10) {
+    line(0, y, width, y);
+  }
 }
 
 function fight_menu() {
