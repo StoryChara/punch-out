@@ -5,39 +5,47 @@ class Fighter {
     this.attack = attack;
     this.x = x;
     this.y = y;
-    this.width = 50;
-    this.height = 100;
     this.offset = 0;
-    this.moveSpeed = 50;
+    this.sprite = f_idle;
+    this.isPunching = false;
+    this.punchTimer = 0;
   }
 
   draw() {
-    if (this.offset === 0) {
-      image(f_idle, this.x + this.offset, this.y, this.width, this.height);
-    } else if (this.offset > 0) {
-      image(f_right, this.x + this.offset, this.y, this.width, this.height);
-    } else if (this.offset < 0) {
-      image(f_left, this.x + this.offset, this.y, this.width, this.height);
-    }
+    image(this.sprite, this.x + this.offset, this.y);
   }
 
   moveLeft() {
-    if (this.offset === 0) {
-      this.offset = -this.moveSpeed;
-    }
+    this.sprite = f_left;
+    this.offset = -50;
   }
 
   moveRight() {
-    if (this.offset === 0) {
-      this.offset = this.moveSpeed; 
-    }
+    this.sprite = f_right;
+    this.offset = 50;
   }
 
-  moveCenter(){
+  moveCenter() {
+    this.sprite = f_idle;
     this.offset = 0;
   }
 
+  punch() {
+    if (!this.isPunching) { 
+      this.sprite = f_punch;
+      this.isPunching = true;
+      this.punchTimer = 7; 
+    }
+  }
+
   update() {
+    if (this.isPunching) {
+      this.punchTimer--;
+      if (this.punchTimer <= 0) {
+        this.isPunching = false;
+        this.moveCenter();
+      }
+    }
     this.draw();
   }
 }
