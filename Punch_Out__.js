@@ -1,4 +1,5 @@
 let scenario, audience;
+let f_idle, f_right, f_left;
 let pixelFont;
 let score;
 let menu;
@@ -9,12 +10,15 @@ function preload() {
   scenario = loadImage('sprites/scenario.png');
   audience = loadImage('sprites/audience.png');
   pixelFont = loadFont('resources/VT323-Regular.ttf');
+  f_idle = loadImage('sprites/character-idle.png');
+  f_right = loadImage('sprites/character-right.png');
+  f_left = loadImage('sprites/character-left.png');
 }
 
 function setup() {
   createCanvas(500, 500);
   menu = 0; 
-  fighter1 = new Fighter("Fighter 1", 100, 10, width / 2 - 25, height - 120);
+  fighter1 = new Fighter("Fighter 1", 100, 10, width / 2 - 25, height - 165);
 }
 
 function draw() {

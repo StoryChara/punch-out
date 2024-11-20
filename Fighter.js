@@ -12,8 +12,13 @@ class Fighter {
   }
 
   draw() {
-    fill(255, 0, 0);  
-    rect(this.x + this.offset, this.y, this.width, this.height);  // Dibuja el rectángulo en la posición con el offset
+    if (this.offset === 0) {
+      image(f_idle, this.x + this.offset, this.y, this.width, this.height);
+    } else if (this.offset > 0) {
+      image(f_right, this.x + this.offset, this.y, this.width, this.height);
+    } else if (this.offset < 0) {
+      image(f_left, this.x + this.offset, this.y, this.width, this.height);
+    }
   }
 
   moveLeft() {
