@@ -1,27 +1,43 @@
 let scenario, audience, logo, deco;
-let f_idle, f_right, f_left, f_punch;
+let charaSprites = {}, enemySprites = {};
 let pixelFont;
 let score;
-let menu;
-let angle = 0;
-let fighter1;
+let menu = 0, angle = 0;
+let chara, enemy;
 
 function preload() {
-  logo = loadImage('sprites/logo.png');
-  scenario = loadImage('sprites/scenario.png');
+  scenario = loadImage('sprites/scenario.png'); 
   audience = loadImage('sprites/audience.png');
+  logo = loadImage('sprites/logo.png');
   deco = loadImage('sprites/deco-scenario.png');
+  
+  charaSprites = {
+    idle: loadImage('sprites/character-idle.png'),
+    right: loadImage('sprites/character-right.png'),
+    left: loadImage('sprites/character-left.png'),
+    punch: loadImage('sprites/character-punch.png'),
+    block: loadImage('sprites/character-block.png'),
+    win: loadImage('sprites/character-win.gif'),
+    lose: loadImage('sprites/character-lose.gif')
+  };
+  
+  enemySprites = {
+    idle: loadImage('sprites/enemy-idle.png'),
+    right: loadImage('sprites/enemy-right.png'),
+    left: loadImage('sprites/enemy-left.png'),
+    punch: loadImage('sprites/enemy-punch.png'),
+    block: loadImage('sprites/enemy-block.png'),
+    win: loadImage('sprites/enemy-win.gif'),
+    lose: loadImage('sprites/enemy-lose.gif')
+  };
+  
   pixelFont = loadFont('resources/punch-out-nes.ttf');
-  f_idle = loadImage('sprites/character-idle.png');
-  f_right = loadImage('sprites/character-right.png');
-  f_left = loadImage('sprites/character-left.png');
-  f_punch = loadImage('sprites/character-punch.png');
 }
 
 function setup() {
   createCanvas(500, 500);
-  menu = 0; 
-  fighter1 = new Fighter("Fighter 1", 100, 10, width / 2 - 25, height - 165);
+  enemy = new Fighter("Mike Tyson", 200, 15, width/2 - 25, height/2 , enemySprites);
+  chara = new Fighter("Little Mac", 100, 10, width/2 - 25, height/2 + 65,  charaSprites);
 }
 
 function draw() {
@@ -44,7 +60,8 @@ function fight_menu() {
   image(deco, 0, 0);
   animation_img(audience);
   image(scenario, 0, 0);
-  fighter1.update();
+  enemy.update();
+  chara.update();
 }
 
 function keyPressed() {
@@ -53,16 +70,16 @@ function keyPressed() {
   } else if (key === 'R' || key === 'r') {
     menu = 0;
   } else if (keyCode === LEFT_ARROW) {
-    fighter1.moveLeft();
+    chara.moveLeft();
   } else if (keyCode === RIGHT_ARROW) {
-    fighter1.moveRight();
+    chara.moveRight();
   } else if (keyCode === UP_ARROW) {
-    fighter1.punch();
+    chara.punch();
   }
 }
 
 function keyReleased() {
   if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
-    fighter1.moveCenter();
+    chara.moveCenter();
   }
 }

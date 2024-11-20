@@ -1,12 +1,13 @@
 class Fighter {
-  constructor(name, health, attack, x, y) {
+  constructor(name, health, attack, x, y, sprites) {
     this.name = name;
     this.health = health;
     this.attack = attack;
     this.x = x;
     this.y = y;
     this.offset = 0;
-    this.sprite = f_idle;
+    this.sprites = sprites;
+    this.sprite = this.sprites.idle; 
     this.isPunching = false;
     this.punchTimer = 0;
   }
@@ -16,25 +17,25 @@ class Fighter {
   }
 
   moveLeft() {
-    this.sprite = f_left;
+    this.sprite = this.sprites.left;
     this.offset = -50;
   }
 
   moveRight() {
-    this.sprite = f_right;
+    this.sprite = this.sprites.right; 
     this.offset = 50;
   }
 
   moveCenter() {
-    this.sprite = f_idle;
+    this.sprite = this.sprites.idle;
     this.offset = 0;
   }
 
   punch() {
-    if (!this.isPunching) { 
-      this.sprite = f_punch;
+    if (!this.isPunching) {
+      this.sprite = this.sprites.punch;
       this.isPunching = true;
-      this.punchTimer = 7; 
+      this.punchTimer = 7;
     }
   }
 
