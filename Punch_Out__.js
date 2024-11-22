@@ -2,7 +2,7 @@ let scenario, audience, logo, deco;
 let charaSprites = {}, enemySprites = {};
 let pixelFont;
 let score;
-let menu = 0, angle = 0;
+let menu = -1, angle = 0;
 let chara, enemy;
 let song, se;
 
@@ -12,8 +12,7 @@ function preload() {
   logo = loadImage('sprites/logo.png');
   deco = loadImage('sprites/deco-scenario.png');
   
-  song = loadSound('resources/soundtrack/1 - Punch Out!! Theme.mp3');
-  se = loadSound('resources/soundtrack/28 - (se) Punching Opponent.mp3');
+  song = loadSound('resources/soundtrack/1_-_Punch_Out!!_Theme.mp3');
   
   charaSprites = {
     idle: loadImage('sprites/character-idle.png'),
@@ -40,16 +39,28 @@ function preload() {
 
 function setup() {
   createCanvas(500, 500);
+  song.setVolume(0.5);
   enemy = new Fighter("Mike Tyson", 200, 15, width/2 - 25, height/2 , enemySprites);
   chara = new Fighter("Little Mac", 100, 10, width/2 - 25, height/2 + 65,  charaSprites);
 }
 
 function draw() {
-  if (menu === 0) {
+  if (menu === -1){
+    start_game();
+  } else if (menu === 0) {
     start_menu();
   } else if (menu === 1) {
     fight_menu();
   }
+}
+
+function start_game(){
+  background(18,18,18);
+  fill(255);
+  textFont(pixelFont);
+  textAlign(CENTER, CENTER);
+  fill(255); stroke(0); strokeWeight(0); textSize(10);
+  text("CLICK to Start", (width / 2), (height/2));
 }
 
 function start_menu() {
@@ -70,6 +81,7 @@ function fight_menu() {
 
 function keyPressed() {
   if (keyCode === ENTER) {
+    song.pause();
     menu = 1;
   } else if (key === 'R' || key === 'r') {
     menu = 0;
@@ -85,5 +97,12 @@ function keyPressed() {
 function keyReleased() {
   if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
     chara.moveCenter();
+  }
+}
+
+function mousePressed() {
+  if (menu === -1) {
+    menu = 0;
+    song.play();
   }
 }
