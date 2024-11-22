@@ -5,6 +5,7 @@ let score;
 let menu = -1, angle = 0;
 let chara, enemy;
 let song, se;
+let round = {};
 
 function preload() {
   scenario = loadImage('sprites/scenario.png'); 
@@ -13,6 +14,7 @@ function preload() {
   deco = loadImage('sprites/deco-scenario.png');
   
   song = loadSound('resources/soundtrack/1_-_Punch_Out!!_Theme.mp3');
+  se = loadSound('resources/soundtrack/28_-_(se)_Punching_Opponent.mp3');
   
   charaSprites = {
     idle: loadImage('sprites/character-idle.png'),
@@ -35,11 +37,18 @@ function preload() {
   };
   
   pixelFont = loadFont('resources/punch-out-nes.ttf');
+  
+  round = {
+    1: loadImage('sprites/round_1.png'),
+    2: loadImage('sprites/round_2.png'),
+    3: loadImage('sprites/round_3.png')
+  };
 }
 
 function setup() {
   createCanvas(500, 500);
   song.setVolume(0.5);
+  se.setVolume(0.5);
   enemy = new Fighter("Mike Tyson", 200, 15, width/2 - 25, height/2 , enemySprites);
   chara = new Fighter("Little Mac", 100, 10, width/2 - 25, height/2 + 65,  charaSprites);
 }
@@ -81,15 +90,19 @@ function fight_menu() {
 
 function keyPressed() {
   if (keyCode === ENTER) {
-    song.pause();
     menu = 1;
+    battleMusic();
   } else if (key === 'R' || key === 'r') {
     menu = 0;
+    introMusic();
   } else if (keyCode === LEFT_ARROW) {
+    dodgingSE();
     chara.moveLeft();
   } else if (keyCode === RIGHT_ARROW) {
+    dodgingSE();
     chara.moveRight();
   } else if (keyCode === UP_ARROW) {
+    punchSE();
     chara.punch();
   }
 }
@@ -103,6 +116,6 @@ function keyReleased() {
 function mousePressed() {
   if (menu === -1) {
     menu = 0;
-    song.play();
+    introMusic();
   }
 }
