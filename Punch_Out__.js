@@ -4,12 +4,16 @@ let pixelFont;
 let score;
 let menu = 0, angle = 0;
 let chara, enemy;
+let song, se;
 
 function preload() {
   scenario = loadImage('sprites/scenario.png'); 
   audience = loadImage('sprites/audience.png');
   logo = loadImage('sprites/logo.png');
   deco = loadImage('sprites/deco-scenario.png');
+  
+  song = loadSound('resources/soundtrack/1 - Punch Out!! Theme.mp3');
+  se = loadSound('resources/soundtrack/28 - (se) Punching Opponent.mp3');
   
   charaSprites = {
     idle: loadImage('sprites/character-idle.png'),
