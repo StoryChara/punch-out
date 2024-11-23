@@ -46,7 +46,8 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(500, 500);
+  const canvas = createCanvas(500, 500);
+  canvas.parent('canvas-container');
   song.setVolume(0.5);
   se.setVolume(0.5);
   enemy = new Fighter("Mike Tyson", 200, 15, width/2 - 25, height/2 , enemySprites);
@@ -89,7 +90,7 @@ function fight_menu() {
 }
 
 function keyPressed() {
-  if (keyCode === ENTER) {
+  if (keyCode === ENTER && menu === 0) {
     menu = 1;
     battleMusic();
   } else if (key === 'R' || key === 'r') {

@@ -1,26 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Punch-Out!!</title>
 
-  <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
+  <!-- Archivos de p5.js -->
   <script language="javascript" type="text/javascript" src="libraries/p5.min.js"></script>
   <script language="javascript" type="text/javascript" src="libraries/p5.sound.min.js"></script>
   <script language="javascript" type="text/javascript" src="Background.js"></script>
   <script language="javascript" type="text/javascript" src="Fighter.js"></script>
   <script language="javascript" type="text/javascript" src="Sounds.js"></script>
   <script language="javascript" type="text/javascript" src="Punch_Out__.js"></script>
-  <!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
 
   <style>
-    body {
-      padding: 0;
-      margin: 0;
+    @font-face {
+      font-family: "PunchOutFont";
+      src: url("resources/punch-out-nes.ttf") format("truetype");
     }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #121212;
+      color: white;
+      font-family: "PunchOutFont", sans-serif;
+      text-align: center;
+    }
+
+    #canvas-container {
+      margin-bottom: 20px; 
+    }
+
+    footer {
+      font-size: 10px; 
+      line-height: 1.6; 
+      letter-spacing: 1.5px; 
+      text-align: center; 
+    }
+
   </style>
 </head>
 
 <body>
+  <div id="canvas-container"></div> 
+  
+  <footer>
+    <p>CONTROLES:<br>
+      ← para esquivar hacia la izquierda.<br>
+      → para esquivar hacia la derecha.<br>
+      ↑ para golpear al contrincante.
+    </p>
+  </footer>
+  
 </body>
+
 </html>
