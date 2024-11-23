@@ -4,7 +4,7 @@ let pixelFont;
 let score;
 let menu = -1, angle = 0;
 let chara, enemy;
-let song, se;
+let song, se, referee;
 let round = {};
 
 function preload() {
@@ -15,6 +15,7 @@ function preload() {
   
   song = loadSound('resources/soundtrack/1_-_Punch_Out!!_Theme.mp3');
   se = loadSound('resources/soundtrack/28_-_(se)_Punching_Opponent.mp3');
+  referee = loadSound('resources/soundtrack/28_-_(se)_Punching_Opponent.mp3');
   
   charaSprites = {
     idle: loadImage('sprites/character-idle.png'),
