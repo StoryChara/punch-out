@@ -38,7 +38,13 @@ class Fighter {
       this.punchTimer = 7;
     }
   }
-
+  punch() {
+    if (!this.isPunching) {
+      this.sprite = this.sprites.punch;
+      this.isPunching = true;
+      this.punchTimer = 7;
+    }
+  }
   update() {
     if (this.isPunching) {
       this.punchTimer--;
@@ -48,5 +54,8 @@ class Fighter {
       }
     }
     this.draw();
+    if (this.isPunching){
+      
+    }
   }
 }
