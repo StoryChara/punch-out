@@ -30,3 +30,11 @@ function drawGrid() {
     line(0, y, width, y);
   }
 }
+
+function roundAnimation(i){
+  image(rounds[i], 0, 0);
+  song.onended(function() {
+    menu = "Fight";
+    battleMusic();
+  });
+}

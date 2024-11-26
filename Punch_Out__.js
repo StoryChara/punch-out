@@ -6,7 +6,7 @@ let menu = "Start_Game";
 let angle = 0;
 let chara, enemy;
 let song, se, referee;
-let round = {};
+let rounds = [], round = 1;
 
 function preload() {
   scenario = loadImage('sprites/scenario.png'); 
@@ -40,11 +40,9 @@ function preload() {
   
   pixelFont = loadFont('resources/punch-out-nes.ttf');
   
-  round = {
-    1: loadImage('sprites/round_1.png'),
-    2: loadImage('sprites/round_2.png'),
-    3: loadImage('sprites/round_3.png')
-  };
+  rounds[1] = loadImage('sprites/round_1.png');
+  rounds[2] = loadImage('sprites/round_2.png');
+  rounds[3] = loadImage('sprites/round_3.png');
 }
 
 function setup() {
@@ -65,6 +63,8 @@ function draw() {
     start_menu();
   } else if (menu === "Fight") {
     fight_menu();
+  } else if (menu === "Round"){
+    roundAnimation(round);
   }
 }
 
@@ -92,10 +92,7 @@ function fight_menu() {
   enemy.update();
   chara.update();
   console.log(enemy.state);
-  //console.log(enemy.health);
-  //console.log(deltaTime);
-  //console.log(enemy.stamina);
-  //console.log(chara.stamina);
+  //console.log(enemy.health); console.log(deltaTime); console.log(enemy.stamina); console.log(chara.stamina);
 }
 
 function keyPressed() {
@@ -103,7 +100,7 @@ function keyPressed() {
     menu = "Fight";
     battleMusic();
   } else if (key === 'R' || key === 'r') {
-    menu = 0;
+    menu = "Intro";
     introMusic();
   } else if (keyCode === LEFT_ARROW && chara.state=='idle') {
     chara.moveLeft();
@@ -114,9 +111,11 @@ function keyPressed() {
   } else if (keyCode === UP_ARROW && chara.state=='idle') {
     chara.punch();
     punchSE();
-  }
-  else if (keyCode === DOWN_ARROW && chara.state=='idle') {
+  } else if (keyCode === DOWN_ARROW && chara.state=='idle') {
     chara.block();
+  } else if (key === 'T' || key === 't') {
+    menu = "Round";
+    roundMusic();
   }
 }
 

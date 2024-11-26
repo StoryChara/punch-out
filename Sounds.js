@@ -1,4 +1,5 @@
 function playSound(){
+  song.setLoop(false);
   song.play();
 }
 
@@ -12,51 +13,43 @@ function playReferee(){
 
 // ---------------------------------------------------------------------- //
 
-function battleMusic(){
-  song.stop();
-  song.setPath("resources/soundtrack/10_-_Match_BGM.mp3", playSound);
+function battleMusic() {
+  song.stop(); // Detenemos cualquier reproducción previa
+  song.setPath("resources/soundtrack/10_-_Match_BGM.mp3", () => {
+    song.loop(); // Inicia la reproducción en bucle una vez que se establece la ruta
+  });
 }
+
 
 function introMusic(){
   song.stop();
   song.setPath("resources/soundtrack/1_-_Punch_Out!!_Theme.mp3", playSound);
-  song.loop(False);
 }
 
-function fightMusic(){
-  song.stop();
-  song.setPath("resources/soundtrack/9_-_Round_1_Begins....mp3", playSound);
-  song.loop(True);
-}
 
 function roundMusic(){
   song.stop();
-  song.setPath("resources/soundtrack/1_-_Punch_Out!!_Theme.mp3", playSound);
-  song.loop(False);
+  song.setPath("resources/soundtrack/9_-_Round_1_Begins....mp3", playSound);
 }
 
 function roundWinMusic(){
   song.stop();
   song.setPath("resources/soundtrack/14_-_Bout_Winner.mp3", playSound);
-  song.loop(False);
 }
 
 function roundLoseMusic(){
   song.stop();
   song.setPath("resources/soundtrack/12_-_You_Lose.mp3", playSound);
-  song.loop(False);
 }
 
 function loseMusic(){
   song.stop();
   song.setPath("resources/soundtrack/20_-_Game_Over.mp3", playSound);
-  song.loop(False);
 }
 
 function winMusic(){
   song.stop();
   song.setPath("resources/soundtrack/19_-_You've_Won_the_Championship_Ranking!!.mp3", playSound);
-  song.loop(False);
 }
 
 // ---------------------------------------------------------------------- //
