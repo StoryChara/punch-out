@@ -2,7 +2,8 @@ let scenario, audience, logo, deco;
 let charaSprites = {}, enemySprites = {};
 let pixelFont;
 let score;
-let menu = -1, angle = 0;
+let menu = "Start_Game";
+let angle = 0;
 let chara, enemy;
 let song, se, referee;
 let round = {};
@@ -58,11 +59,11 @@ function setup() {
 }
 
 function draw() {
-  if (menu === -1){
+  if (menu === "Start_Game"){
     start_game();
-  } else if (menu === 0) {
+  } else if (menu === "Intro") {
     start_menu();
-  } else if (menu === 1) {
+  } else if (menu === "Fight") {
     fight_menu();
   }
 }
@@ -98,8 +99,8 @@ function fight_menu() {
 }
 
 function keyPressed() {
-  if (keyCode === ENTER && menu === 0) {
-    menu = 1;
+  if (keyCode === ENTER && menu === "Intro") {
+    menu = "Fight";
     battleMusic();
   } else if (key === 'R' || key === 'r') {
     menu = 0;
@@ -126,8 +127,8 @@ function keyReleased() {
 }
 
 function mousePressed() {
-  if (menu === -1) {
-    menu = 0;
+  if (menu === "Start_Game") {
+    menu = "Intro";
     introMusic();
   }
 }
