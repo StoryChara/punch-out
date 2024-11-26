@@ -2,14 +2,20 @@ let scenario, audience, logo, deco;
 let charaSprites = {}, enemySprites = {};
 let pixelFont;
 let score;
-let menu = 0, angle = 0;
+let menu = -1, angle = 0;
 let chara, enemy;
+let song, se, referee;
+let round = {};
 
 function preload() {
   scenario = loadImage('sprites/scenario.png'); 
   audience = loadImage('sprites/audience.png');
   logo = loadImage('sprites/logo.png');
   deco = loadImage('sprites/deco-scenario.png');
+  
+  song = loadSound('resources/soundtrack/1_-_Punch_Out!!_Theme.mp3');
+  se = loadSound('resources/soundtrack/28_-_(se)_Punching_Opponent.mp3');
+  referee = loadSound('resources/soundtrack/28_-_(se)_Punching_Opponent.mp3');
   
   charaSprites = {
     idle: loadImage('sprites/character-idle.png'),
@@ -32,10 +38,19 @@ function preload() {
   };
   
   pixelFont = loadFont('resources/punch-out-nes.ttf');
+  
+  round = {
+    1: loadImage('sprites/round_1.png'),
+    2: loadImage('sprites/round_2.png'),
+    3: loadImage('sprites/round_3.png')
+  };
 }
 
 function setup() {
-  createCanvas(500, 500);
+  const canvas = createCanvas(500, 500);
+  canvas.parent('canvas-container');
+  song.setVolume(0.5);
+  se.setVolume(0.5);
   enemy = new Fighter("Mike Tyson", 200, 15,25, width/2 - 25, height/2 , enemySprites,true);
   chara = new Fighter("Little Mac", 100, 10,25, width/2 - 25, height/2 + 65,  charaSprites,false);
   enemy.addEnemy(chara);
@@ -43,11 +58,22 @@ function setup() {
 }
 
 function draw() {
-  if (menu === 0) {
+  if (menu === -1){
+    start_game();
+  } else if (menu === 0) {
     start_menu();
   } else if (menu === 1) {
     fight_menu();
   }
+}
+
+function start_game(){
+  background(18,18,18);
+  fill(255);
+  textFont(pixelFont);
+  textAlign(CENTER, CENTER);
+  fill(255); stroke(0); strokeWeight(0); textSize(10);
+  text("CLICK to Start", (width / 2), (height/2));
 }
 
 function start_menu() {
@@ -72,16 +98,21 @@ function fight_menu() {
 }
 
 function keyPressed() {
-  if (keyCode === ENTER) {
+  if (keyCode === ENTER && menu === 0) {
     menu = 1;
+    battleMusic();
   } else if (key === 'R' || key === 'r') {
     menu = 0;
+    introMusic();
   } else if (keyCode === LEFT_ARROW && chara.state=='idle') {
     chara.moveLeft();
+    dodgingSE();
   } else if (keyCode === RIGHT_ARROW && chara.state=='idle') {
     chara.moveRight();
+    dodgingSE();
   } else if (keyCode === UP_ARROW && chara.state=='idle') {
     chara.punch();
+    punchSE();
   }
   else if (keyCode === DOWN_ARROW && chara.state=='idle') {
     chara.block();
@@ -91,5 +122,12 @@ function keyPressed() {
 function keyReleased() {
   if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW || keyCode === DOWN_ARROW) {
     chara.moveCenter();
+  }
+}
+
+function mousePressed() {
+  if (menu === -1) {
+    menu = 0;
+    introMusic();
   }
 }
