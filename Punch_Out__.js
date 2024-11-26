@@ -36,8 +36,10 @@ function preload() {
 
 function setup() {
   createCanvas(500, 500);
-  enemy = new Fighter("Mike Tyson", 200, 15, width/2 - 25, height/2 , enemySprites);
-  chara = new Fighter("Little Mac", 100, 10, width/2 - 25, height/2 + 65,  charaSprites);
+  enemy = new Fighter("Mike Tyson", 200, 15,25, width/2 - 25, height/2 , enemySprites,true);
+  chara = new Fighter("Little Mac", 100, 10,25, width/2 - 25, height/2 + 65,  charaSprites,false);
+  enemy.addEnemy(chara);
+  chara.addEnemy(enemy);
 }
 
 function draw() {
@@ -62,6 +64,11 @@ function fight_menu() {
   image(scenario, 0, 0);
   enemy.update();
   chara.update();
+  console.log(enemy.state);
+  //console.log(enemy.health);
+  //console.log(deltaTime);
+  //console.log(enemy.stamina);
+  //console.log(chara.stamina);
 }
 
 function keyPressed() {
@@ -69,17 +76,20 @@ function keyPressed() {
     menu = 1;
   } else if (key === 'R' || key === 'r') {
     menu = 0;
-  } else if (keyCode === LEFT_ARROW) {
+  } else if (keyCode === LEFT_ARROW && chara.state=='idle') {
     chara.moveLeft();
-  } else if (keyCode === RIGHT_ARROW) {
+  } else if (keyCode === RIGHT_ARROW && chara.state=='idle') {
     chara.moveRight();
-  } else if (keyCode === UP_ARROW) {
+  } else if (keyCode === UP_ARROW && chara.state=='idle') {
     chara.punch();
+  }
+  else if (keyCode === DOWN_ARROW && chara.state=='idle') {
+    chara.block();
   }
 }
 
 function keyReleased() {
-  if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
+  if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW || keyCode === DOWN_ARROW) {
     chara.moveCenter();
   }
 }
