@@ -1,5 +1,5 @@
 let scenario, audience, logo, deco;
-let charaSprites = {}, enemySprites = {};
+let charaSprites = {}, enemySprites = {}, refereeSprites = {};
 let pixelFont;
 let score;
 let menu = "Start_Game";
@@ -38,6 +38,12 @@ function preload() {
     lose: loadImage('sprites/enemy-lose.gif')
   };
   
+  refereeSprites = {
+    talk1: loadImage('sprites/referee-1.png'),
+    talk2: loadImage('sprites/referee-2.png'),
+    talk: loadImage('sprites/referee-dialogue.png'),
+  }
+  
   pixelFont = loadFont('resources/punch-out-nes.ttf');
   
   rounds[1] = loadImage('sprites/round_1.png');
@@ -64,58 +70,39 @@ function draw() {
   } else if (menu === "Fight") {
     fight_menu();
   } else if (menu === "Round"){
-    roundAnimation(round);
+    battle_menu();
+  } else if (menu === "Referee_Start"){
+    refereeStart_menu();
   }
 }
 
-function start_game(){
-  background(18,18,18);
-  fill(255);
-  textFont(pixelFont);
-  textAlign(CENTER, CENTER);
-  fill(255); stroke(0); strokeWeight(0); textSize(10);
-  text("CLICK to Start", (width / 2), (height/2));
-}
-
-function start_menu() {
-  background(18, 18, 18);
-  drawGrid();
-  animation_img(logo);
-  angle = start_text(angle);
-}
-
-function fight_menu() {
-  background(18, 18, 18);
-  image(deco, 0, 0);
-  animation_img(audience);
-  image(scenario, 0, 0);
-  enemy.update();
-  chara.update();
-  console.log(enemy.state);
-  //console.log(enemy.health); console.log(deltaTime); console.log(enemy.stamina); console.log(chara.stamina);
-}
-
 function keyPressed() {
-  if (keyCode === ENTER && menu === "Intro") {
-    menu = "Fight";
-    battleMusic();
-  } else if (key === 'R' || key === 'r') {
-    menu = "Intro";
-    introMusic();
-  } else if (keyCode === LEFT_ARROW && chara.state=='idle') {
-    chara.moveLeft();
-    dodgingSE();
-  } else if (keyCode === RIGHT_ARROW && chara.state=='idle') {
-    chara.moveRight();
-    dodgingSE();
-  } else if (keyCode === UP_ARROW && chara.state=='idle') {
-    chara.punch();
-    punchSE();
-  } else if (keyCode === DOWN_ARROW && chara.state=='idle') {
-    chara.block();
-  } else if (key === 'T' || key === 't') {
-    menu = "Round";
-    roundMusic();
+  if (key === 'R' || key === 'r') {
+    menu = "Start_Game";
+    song.stop();
+  } else if (menu === "Intro"){
+    
+    if (keyCode === ENTER){
+      menu = "Round";
+      roundMusic();
+    }
+    
+  } else if (menu === 'Fight' && referee_count < 0 ){
+    
+    if (keyCode === LEFT_ARROW && chara.state=='idle') {
+      chara.moveLeft();
+      dodgingSE();
+    } else if (keyCode === RIGHT_ARROW && chara.state=='idle') {
+      chara.moveRight();
+      dodgingSE();
+    } else if (keyCode === UP_ARROW && chara.state=='idle') {
+      chara.punch();
+      punchSE();
+    } else if (keyCode === DOWN_ARROW && chara.state=='idle') {
+      chara.block();
+      blockingSE()
+    }
+    
   }
 }
 

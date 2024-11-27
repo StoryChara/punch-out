@@ -1,3 +1,10 @@
+let refereeCount = 1; // Número actual que el referee está contando
+let counting = false; // Indica si la animación está activa
+let refereeMaxCount = 10; // Número máximo a contar
+let lastUpdateTime = 0; // Último momento en que se actualizó el conteo
+let interval = 1000; // Intervalo en milisegundos (1 segundo)
+let spriteToggle = true; // Alternar entre los sprites
+
 function start_text(angle) {
   let yOffset = sin(angle) * 10;
   angle += 0.05;
@@ -35,6 +42,16 @@ function roundAnimation(i){
   image(rounds[i], 0, 0);
   song.onended(function() {
     menu = "Fight";
-    battleMusic();
+    referee_count = 4 * referee_time;
+    battleMusic(); updateBattle();
   });
+}
+
+function numAnimation(i){
+  image(refereeSprites.talk, 0, 0);
+  textFont(pixelFont);
+  textAlign(CENTER, CENTER);
+  fill(0);
+  stroke(0); strokeWeight(0); textSize(10);
+  text(i, ((3*width) / 4)-47, ((3*height) / 4)-25); 
 }

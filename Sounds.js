@@ -14,9 +14,9 @@ function playReferee(){
 // ---------------------------------------------------------------------- //
 
 function battleMusic() {
-  song.stop(); // Detenemos cualquier reproducción previa
+  song.stop();
   song.setPath("resources/soundtrack/10_-_Match_BGM.mp3", () => {
-    song.loop(); // Inicia la reproducción en bucle una vez que se establece la ruta
+    song.loop();
   });
 }
 
