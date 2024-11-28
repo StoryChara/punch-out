@@ -39,7 +39,10 @@ function drawGrid() {
 }
 
 function roundAnimation(i){
-  image(rounds[i], 0, 0);
+  //image(rounds[i], 0, 0);
+  angle += 0.1; 
+  let yOffset = floor(sin(angle) * 5); 
+  image(rounds[i], 0, yOffset);
   song.onended(function() {
     menu = "Fight";
     referee_count = 4 * referee_time;

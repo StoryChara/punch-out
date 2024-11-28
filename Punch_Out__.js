@@ -13,6 +13,7 @@ function preload() {
   audience = loadImage('sprites/audience.png');
   logo = loadImage('sprites/logo.png');
   deco = loadImage('sprites/deco-scenario.png');
+  interlude = loadImage('sprites/interlude.png');
   
   song = loadSound('resources/soundtrack/1_-_Punch_Out!!_Theme.mp3');
   se = loadSound('resources/soundtrack/28_-_(se)_Punching_Opponent.mp3');
@@ -56,8 +57,8 @@ function setup() {
   canvas.parent('canvas-container');
   song.setVolume(0.5);
   se.setVolume(0.5);
-  enemy = new Fighter("Mike Tyson", 200, 15,25, width/2 - 25, height/2 , enemySprites,true);
-  chara = new Fighter("Little Mac", 100, 10,25, width/2 - 25, height/2 + 65,  charaSprites,false);
+  enemy = new Fighter("Mike Tyson", 200, 15,25, width/2 - 25, height/2 , enemySprites, true);
+  chara = new Fighter("Little Mac", 100, 10,25, width/2 - 25, height/2 + 65,  charaSprites, false);
   enemy.addEnemy(chara);
   chara.addEnemy(enemy);
 }
@@ -71,8 +72,10 @@ function draw() {
     fight_menu();
   } else if (menu === "Round"){
     battle_menu();
-  } else if (menu === "Referee_Start"){
-    refereeStart_menu();
+  } else if (menu === "Interlude"){
+    interlude_menu();
+  } else if (menu === "Enter"){
+    enter_menu();
   }
 }
 
@@ -80,10 +83,20 @@ function keyPressed() {
   if (key === 'R' || key === 'r') {
     menu = "Start_Game";
     song.stop();
+    
   } else if (menu === "Intro"){
     
     if (keyCode === ENTER){
+      menu = "Interlude";
+      song.stop();
+      interludeMusic();
+    }
+    
+  } else if (menu === 'Enter') {
+    
+    if (keyCode === ENTER){
       menu = "Round";
+      song.stop();
       roundMusic();
     }
     

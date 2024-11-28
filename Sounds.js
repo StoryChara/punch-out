@@ -32,6 +32,11 @@ function roundMusic(){
   song.setPath("resources/soundtrack/9_-_Round_1_Begins....mp3", playSound);
 }
 
+function interludeMusic(){
+  song.stop();
+  song.setPath("resources/soundtrack/17_-_The_Dream_Fight!!.mp3", playSound);
+}
+
 function roundWinMusic(){
   song.stop();
   song.setPath("resources/soundtrack/14_-_Bout_Winner.mp3", playSound);
