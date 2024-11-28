@@ -85,5 +85,5 @@ function pauseTimer() {
 function resetTimer() {
   time.minutes = 0;
   time.seconds = 0;
-  lastUpdate = millis();
+  isRunning = false;
 }
