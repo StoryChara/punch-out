@@ -81,7 +81,7 @@ function draw() {
 
 function keyPressed() {
   if (key === 'R' || key === 'r') {
-    menu = "Start_Game";
+    menu = "Intro";
     song.stop();
     
   } else if (menu === "Intro"){

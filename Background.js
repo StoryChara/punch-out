@@ -1,9 +1,4 @@
-let refereeCount = 1; // Número actual que el referee está contando
-let counting = false; // Indica si la animación está activa
-let refereeMaxCount = 10; // Número máximo a contar
-let lastUpdateTime = 0; // Último momento en que se actualizó el conteo
-let interval = 1000; // Intervalo en milisegundos (1 segundo)
-let spriteToggle = true; // Alternar entre los sprites
+let time = { minutes: 0, seconds: 0 };
 
 function start_text(angle) {
   let yOffset = sin(angle) * 10;
@@ -57,4 +52,38 @@ function numAnimation(i){
   fill(0);
   stroke(0); strokeWeight(0); textSize(10);
   text(i, ((3*width) / 4)-47, ((3*height) / 4)-25); 
+}
+
+function timer(){
+  fill(0); stroke(255); strokeWeight(2);
+  rect(300, 50, 120, 30);
+  textFont(pixelFont); textAlign(CENTER, CENTER);
+  fill(255); stroke(0); strokeWeight(0); textSize(20);
+  formattedTime = `${String(time.minutes).padStart(1, '0')}:${String(time.seconds).padStart(2, '0')}`;
+  text(formattedTime, 360, 65);
+  
+  if (isRunning && millis() - lastUpdate >= 1000) {
+    lastUpdate = millis();
+    time.seconds++;
+
+    if (time.seconds >= 60) {
+      time.seconds = 0;
+      time.minutes++;
+    }
+  }
+}
+
+function startTimer() {
+  isRunning = true;
+  lastUpdate = millis(); // Resetea el punto de referencia para evitar saltos
+}
+
+function pauseTimer() {
+  isRunning = false;
+}
+
+function resetTimer() {
+  time.minutes = 0;
+  time.seconds = 0;
+  lastUpdate = millis();
 }

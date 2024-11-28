@@ -1,5 +1,6 @@
 let referee_count = 0;
 let referee_time = 20;
+let isRunning = false;
 
 function start_game(){
   background(18,18,18);
@@ -36,6 +37,14 @@ function fight_menu() {
     image(refereeSprites.talk2, 0,0);
   }
   
+  if (num >= 0) {
+    if (isRunning) {
+      pauseTimer(); // Pausa si el referee está contando
+    }
+  } else if (!isRunning) {
+       startTimer(); // Reanuda si el referee no está contando
+  }
+  
   if (num>=0) {
     
     if ( num === 0 ){
@@ -51,6 +60,7 @@ function fight_menu() {
   }
   enemy.update();
   chara.update();
+  timer();
   // console.log(enemy.state); console.log(enemy.health); console.log(deltaTime); console.log(enemy.stamina); console.log(chara.stamina);
 }
 
