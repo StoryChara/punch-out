@@ -55,12 +55,14 @@ function numAnimation(i){
 }
 
 function timer(){
-  fill(0); stroke(255); strokeWeight(2);
-  rect(300, 50, 120, 30);
+  fill(0, 112, 236); stroke(255); strokeWeight(2);
+  rect(350, 30, 95, 52);
   textFont(pixelFont); textAlign(CENTER, CENTER);
   fill(255); stroke(0); strokeWeight(0); textSize(20);
   formattedTime = `${String(time.minutes).padStart(1, '0')}:${String(time.seconds).padStart(2, '0')}`;
-  text(formattedTime, 360, 65);
+  text(formattedTime, 400, 45);
+  textSize(11);
+  text(`Round ${round}`, 400, 70);
   
   if (isRunning && millis() - lastUpdate >= 1000) {
     lastUpdate = millis();
@@ -174,4 +176,7 @@ function resetGame() {
   enemy.isBlocking = false; 
   chara.stamina = 25; 
   enemy.stamina = 25; 
+}
+
+function round_battles() {
 }

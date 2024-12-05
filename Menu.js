@@ -75,9 +75,10 @@ function fight_menu() {
   }
   enemy.update();
   chara.update();
-  playerHealthBar.update(playerHealth);
-  enemyHealthBar.update(enemyHealth);
-  displayRoundWins();
+  //playerHealthBar.update(playerHealth);
+  //enemyHealthBar.update(enemyHealth);
+  
+  //displayRoundWins();
   timer();
 }
 
