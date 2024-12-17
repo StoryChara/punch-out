@@ -50,6 +50,11 @@ function preload() {
   rounds[1] = loadImage('sprites/round_1.png');
   rounds[2] = loadImage('sprites/round_2.png');
   rounds[3] = loadImage('sprites/round_3.png');
+  
+  extraSprites = {
+    heart: loadImage('sprites/heart.png'),
+    star: loadImage('sprites/star.png')
+  }
 }
 
 function setup() {

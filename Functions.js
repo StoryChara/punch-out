@@ -56,13 +56,13 @@ function numAnimation(i){
 
 function timer(){
   fill(0, 112, 236); stroke(0); strokeWeight(1);
-  rect(350, 30, 95, 52, 5);
+  rect(375, 30, 95, 52, 5);
   textFont(pixelFont); textAlign(CENTER, CENTER);
   fill(255); stroke(0); strokeWeight(0); textSize(20);
   formattedTime = `${String(time.minutes).padStart(1, '0')}:${String(time.seconds).padStart(2, '0')}`;
-  text(formattedTime, 400, 45);
+  text(formattedTime, 425, 45);
   textSize(11);
-  text(`Round ${round}`, 400, 70);
+  text(`Round ${round}`, 425, 70);
   
   if (isRunning && millis() - lastUpdate >= 1000) {
     lastUpdate = millis();
@@ -76,23 +76,37 @@ function timer(){
 }
 
 function statsBar(){
-  // VIDA
-  fill(0); rectMode(CORNER);
-  rect(180, 30, 65, 26, 5); rect(255, 30, 65, 26, 5);
+  // EXTRAS
   push();
+  translate(0, 10);
+  fill(0); stroke(0, 112, 236); strokeWeight(1);
+  rect(30, 30, 55, 35, 5); rect(90, 30, 90, 35, 5);
+  image(extraSprites.star, 35, 35); image(extraSprites.heart, 95, 35);
+  textFont(pixelFont); textAlign(LEFT, TOP);
+  fill(255); stroke(0); strokeWeight(0); textSize(20);
+  text(playerWins, 65, 40); text(playerHealth, 120, 40);
+  pop();
+  
+  // VIDA
+  push();
+  fill(0); rectMode(CORNER);
+  health_lenght = 70;
+  rect(198, 30, health_lenght, 30, 5); rect(283, 30, health_lenght, 30, 5);
   fill(255); rectMode(CORNERS);
-  rect(245-map(playerHealth, 0, 100, 0, 65), 30, 245, 56, 5); 
-  rect(255, 30, 255+map(enemyHealth, 0, 100, 0, 65), 56, 5);
+  rect(268-map(playerHealth, 0, 100, 0, health_lenght), 30, 268, 60, 5); rect(283, 30, 283+map(enemyHealth, 0, 100, 0, health_lenght), 60, 5);
   pop();
   
   
   // PUNTOS
+  push();
   fill(0, 112, 236); stroke(0); strokeWeight(1);
-  rect(175, 56, 150, 26, 5);
-  textFont(pixelFont); textAlign(LEFT, CENTER);
+  rect(188, 56, 175, 26, 5);
+  textFont(pixelFont); textAlign(CENTER, CENTER);
   fill(255); stroke(0); strokeWeight(0); textSize(11);
-  formattedPoints = `Points: 000`;//formattedTime = `Points: ${points}`;
-  text(formattedPoints, 185, 70);
+  formattedPoints = `Points :  000`;//formattedTime = `Points: ${points}`;
+  text(formattedPoints, 275, 70);
+  pop();
+  
 }
 
 function startTimer() {
@@ -126,8 +140,7 @@ function startNextRound() {
   menu = "Fight";
   playerHealth = 100;
   enemyHealth = 100;
-  playerHealthBar.update(playerHealth);
-  enemyHealthBar.update(enemyHealth);
+  
 }
 
 function end_game() {
