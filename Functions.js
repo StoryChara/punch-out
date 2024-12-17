@@ -75,7 +75,7 @@ function timer(){
   }
 }
 
-function health_Bar(){
+function statsBar(){
   // VIDA
   fill(0); rectMode(CORNER);
   rect(180, 30, 65, 26, 5); rect(255, 30, 65, 26, 5);
