@@ -18,6 +18,10 @@ class Fighter {
   draw() {
     image(this.sprite, this.x + this.offset, this.y);
   }
+  
+  getHealth(){
+    return this.health;
+  }
 
   moveLeft() {
     this.sprite = this.sprites.left;

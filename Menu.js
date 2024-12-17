@@ -80,6 +80,7 @@ function fight_menu() {
   
   //displayRoundWins();
   timer();
+  health_Bar();
 }
 
 function next_round_menu() {

@@ -55,8 +55,8 @@ function numAnimation(i){
 }
 
 function timer(){
-  fill(0, 112, 236); stroke(255); strokeWeight(2);
-  rect(350, 30, 95, 52);
+  fill(0, 112, 236); stroke(0); strokeWeight(1);
+  rect(350, 30, 95, 52, 5);
   textFont(pixelFont); textAlign(CENTER, CENTER);
   fill(255); stroke(0); strokeWeight(0); textSize(20);
   formattedTime = `${String(time.minutes).padStart(1, '0')}:${String(time.seconds).padStart(2, '0')}`;
@@ -73,6 +73,26 @@ function timer(){
       time.minutes++;
     }
   }
+}
+
+function health_Bar(){
+  // VIDA
+  fill(0); rectMode(CORNER);
+  rect(180, 30, 65, 26, 5); rect(255, 30, 65, 26, 5);
+  push();
+  fill(255); rectMode(CORNERS);
+  rect(245-map(playerHealth, 0, 100, 0, 65), 30, 245, 56, 5); 
+  rect(255, 30, 255+map(enemyHealth, 0, 100, 0, 65), 56, 5);
+  pop();
+  
+  
+  // PUNTOS
+  fill(0, 112, 236); stroke(0); strokeWeight(1);
+  rect(175, 56, 150, 26, 5);
+  textFont(pixelFont); textAlign(LEFT, CENTER);
+  fill(255); stroke(0); strokeWeight(0); textSize(11);
+  formattedPoints = `Points: 000`;//formattedTime = `Points: ${points}`;
+  text(formattedPoints, 185, 70);
 }
 
 function startTimer() {

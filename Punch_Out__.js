@@ -61,8 +61,8 @@ function setup() {
   chara = new Fighter("Little Mac", 100, 10, 25, width/2 - 25, height/2 + 65, charaSprites, false);
   enemy.addEnemy(chara);
   chara.addEnemy(enemy);
-  playerHealthBar = new HealthBar(20, 20, 100, 10, color(0, 255, 0));
-  enemyHealthBar = new HealthBar(width - 120, 20, 100, 10, color(255, 0, 0));
+  //playerHealthBar = new HealthBar(20, 20, 100, 10, color(0, 255, 0));
+  //enemyHealthBar = new HealthBar(width - 120, 20, 100, 10, color(255, 0, 0));
 }
 
 function draw() {
