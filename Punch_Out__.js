@@ -23,6 +23,7 @@ function preload() {
   song = loadSound('resources/soundtrack/1_-_Punch_Out!!_Theme.mp3');
   se = loadSound('resources/soundtrack/28_-_(se)_Punching_Opponent.mp3');
   referee = loadSound('resources/soundtrack/28_-_(se)_Punching_Opponent.mp3');
+
   charaSprites = {
     idle: loadImage('sprites/character-idle.png'),
     right: loadImage('sprites/character-right.png'),
@@ -32,6 +33,7 @@ function preload() {
     win: loadImage('sprites/character-win.gif'),
     lose: loadImage('sprites/character-lose.gif')
   };
+
   enemySprites = {
     idle: loadImage('sprites/enemy-idle.png'),
     right: loadImage('sprites/enemy-right.png'),
@@ -41,11 +43,13 @@ function preload() {
     win: loadImage('sprites/enemy-win.gif'),
     lose: loadImage('sprites/enemy-lose.gif')
   };
+
   refereeSprites = {
     talk1: loadImage('sprites/referee-1.png'),
     talk2: loadImage('sprites/referee-2.png'),
     talk: loadImage('sprites/referee-dialogue.png'),
   };
+
   pixelFont = loadFont('resources/punch-out-nes.ttf');
   rounds[1] = loadImage('sprites/round_1.png');
   rounds[2] = loadImage('sprites/round_2.png');
@@ -55,6 +59,9 @@ function preload() {
     heart: loadImage('sprites/heart.png'),
     star: loadImage('sprites/star.png')
   };
+
+  battle_win = loadImage('sprites/b-win.png');
+  battle_lose = loadImage('sprites/b-lose.png');
 }
 
 function setup() {

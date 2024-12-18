@@ -62,7 +62,7 @@ function timer(){
   formattedTime = `${String(time.minutes).padStart(1, '0')}:${String(time.seconds).padStart(2, '0')}`;
   text(formattedTime, 425, 45);
   textSize(11);
-  text(`Round ${round}`, 425, 70);
+  text(`Round ${currentRound}`, 425, 70);
   
   if (isRunning && millis() - lastUpdate >= 1000) {
     lastUpdate = millis();
@@ -129,11 +129,18 @@ function nextRound() {
   currentRound++;
   if (playerWins >= 2 || enemyWins >= 2) {
     menu = "End";
+    /* NO QUIERE FUNCIONAR LA CANCION, NO SÉ PORQUE
+    song.stop();
+    if (playerWins >= 2){
+      winMusic();
+    } else {
+      loseMusic();
+    }
+    */
   } else if (currentRound > maxRounds) {
     menu = "End";
   } else {
     menu = "Next_Round";
-    roundTimer = millis();
   }
 }
 
@@ -141,50 +148,29 @@ function startNextRound() {
   menu = "Fight";
   playerHealth = 100;
   enemyHealth = 100;
-  
+  resetTimer();
 }
 
 function end_game() {
   background(0);
-  fill(255);
-  textSize(24); 
-  textAlign(CENTER, CENTER); 
-  if (playerWins > enemyWins) {
-    text("Ganaste el juego", width / 2, height / 2 - 20);
-    enemy.sprite = enemy.sprites.lose;
-    chara.sprite = chara.sprites.win;
-    
+  if (playerWins >= 2 || enemyWins >= 2) {
+    image(battle_win, 0, 0);
+  } else if (currentRound > maxRounds) {
+    image(battle_lose, 0, 0);
   } else {
-    text("Perdiste el juego", width / 2, height / 2 - 20);
-    chara.sprite = chara.sprites.lose;
-    enemy.sprite = enemy.sprites.win;
+    image(battle_lose, 0, 0);
   }
-  textSize(16); 
-  text("Presiona R para reiniciar", width / 2, height / 2 + 20);
-
-  chara.draw();
-  enemy.draw();
 }
 
 function end_game() {
   background(0);
-  fill(255);
-  textSize(24); 
-  textAlign(CENTER, CENTER); // Centrar el texto
-  if (playerWins > enemyWins) {
-    text("Ganaste el juego", width / 2, height / 2 - 20);
-    chara.sprite = chara.sprites.win;
-    enemy.sprite = enemy.sprites.lose;
+  if (playerWins >= 2 || enemyWins >= 2) {
+    image(battle_win, 0, 0);
+  } else if (currentRound > maxRounds) {
+    image(battle_lose, 0, 0);
   } else {
-    text("Perdiste el juego", width / 2, height / 2 - 20);
-    enemy.sprite = enemy.sprites.win;
-    chara.sprite = chara.sprites.lose;
+    image(battle_lose, 0, 0);
   }
-  textSize(16); // Ajustar el tamaño del texto
-  text("Presiona R para reiniciar", width / 2, height / 2 + 20);
-
-  enemy.draw(); 
-  chara.draw(); 
 }
 
 function resetGame() {
