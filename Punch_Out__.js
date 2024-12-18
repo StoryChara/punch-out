@@ -5,9 +5,8 @@ let score = 0;
 let menu = "Start_Game";
 let angle = 0;
 let chara, enemy;
-let song, se, referee;
+let song, se, referee, battle;
 let rounds = [], round = 1;
-let playerHealthBar, enemyHealthBar;
 let playerHealth = 100, enemyHealth = 100;
 let maxRounds = 3, currentRound = 1;
 let playerWins = 0, enemyWins = 0;
@@ -20,9 +19,11 @@ function preload() {
   logo = loadImage('sprites/logo.png');
   deco = loadImage('sprites/deco-scenario.png');
   interlude = loadImage('sprites/interlude.png');
+  
   song = loadSound('resources/soundtrack/1_-_Punch_Out!!_Theme.mp3');
   se = loadSound('resources/soundtrack/28_-_(se)_Punching_Opponent.mp3');
   referee = loadSound('resources/soundtrack/28_-_(se)_Punching_Opponent.mp3');
+  battle = loadSound('resources/soundtrack/10_-_Match_BGM.mp3');
 
   charaSprites = {
     idle: loadImage('sprites/character-idle.png'),
@@ -67,7 +68,7 @@ function preload() {
 function setup() {
   const canvas = createCanvas(500, 500);
   canvas.parent('canvas-container');
-  song.setVolume(0.25); se.setVolume(0.25);
+  song.setVolume(0.25); se.setVolume(0.25); battle.setVolume(0.25);
   enemy = new Fighter("Mike Tyson", 100, 15, 25, width/2 - 25, height/2 , enemySprites, true);
   chara = new Fighter("Little Mac", 100, 10, 25, width/2 - 25, height/2 + 65, charaSprites, false);
   enemy.addEnemy(chara);
@@ -108,7 +109,6 @@ function keyPressed() {
   } else if (menu === 'Enter') {
     if (keyCode === ENTER){
       menu = "Round";
-      song.stop();
       roundMusic();
     }
   } else if (menu === 'Fight' && referee_count < 0 ){
@@ -122,19 +122,18 @@ function keyPressed() {
       chara.punch();
       punchSE();
       enemyHealth -= chara.attack;
-      score += floor(random(5, 15));
+      score += 10;
       if (enemyHealth <= 0) {
         enemyHealth = 0;
         playerWins++;
         roundMessage = "Ganaste un round";
         menu = "Round_Result";
+        roundWinMusic();
       }
     } else if (keyCode === DOWN_ARROW && chara.state == 'idle') {
       chara.block();
       blockingSE();
     }
-  } else if (menu === 'Round_Result' && (key === 'C' || key === 'c')) {
-    nextRound(); // Cambiar a la siguiente ronda
   }
 }
 

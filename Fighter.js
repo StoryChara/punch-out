@@ -100,6 +100,7 @@ class Fighter {
       enemyWins++;
       roundMessage = "Perdiste un round";
       menu = "Round_Result";
+      roundLoseMusic();
     }
   }
 
@@ -109,7 +110,6 @@ class Fighter {
     while (wtimer <= time) {
       wtimer += deltaTime;
     }
-    console.log("RING!!!");
     return true;
   }
 }

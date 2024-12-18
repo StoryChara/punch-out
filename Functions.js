@@ -33,15 +33,15 @@ function drawGrid() {
   }
 }
 
-function roundAnimation(i){
+function roundAnimation(){
   //image(rounds[i], 0, 0);
   angle += 0.1; 
   let yOffset = floor(sin(angle) * 5); 
-  image(rounds[i], 0, yOffset);
+  image(rounds[currentRound], 0, yOffset);
   song.onended(function() {
     menu = "Fight";
     referee_count = 4 * referee_time;
-    battleMusic(); updateBattle();
+    battleMusic(); startNextRound()
   });
 }
 
@@ -129,18 +129,17 @@ function nextRound() {
   currentRound++;
   if (playerWins >= 2 || enemyWins >= 2) {
     menu = "End";
-    /* NO QUIERE FUNCIONAR LA CANCION, NO SÉ PORQUE
-    song.stop();
     if (playerWins >= 2){
       winMusic();
     } else {
       loseMusic();
     }
-    */
   } else if (currentRound > maxRounds) {
     menu = "End";
   } else {
-    menu = "Next_Round";
+    menu = "Interlude";
+    song.stop();
+    interludeMusic();
   }
 }
 
@@ -148,6 +147,8 @@ function startNextRound() {
   menu = "Fight";
   playerHealth = 100;
   enemyHealth = 100;
+  chara.moveCenter();
+  enemy.moveCenter();
   resetTimer();
 }
 
@@ -174,10 +175,8 @@ function end_game() {
 }
 
 function resetGame() {
-  menu = "Intro";
-  song.stop();
-  playerHealth = 100;
-  enemyHealth = 100;
+  menu = "Start_Game";
+  song.stop(); battle.stop();
   playerWins = 0;
   enemyWins = 0;
   currentRound = 1;
@@ -194,8 +193,6 @@ function resetGame() {
   enemy.isPunching = false; 
   chara.isBlocking = false; 
   enemy.isBlocking = false; 
-  chara.stamina = 25; 
-  enemy.stamina = 25; 
 }
 
 function round_battles() {

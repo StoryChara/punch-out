@@ -19,7 +19,7 @@ function start_menu() {
 }
 
 function battle_menu(){
-  roundAnimation(round);
+  roundAnimation();
 }
 
 function interlude_menu(){
@@ -75,10 +75,6 @@ function fight_menu() {
   }
   enemy.update();
   chara.update();
-  //playerHealthBar.update(playerHealth);
-  //enemyHealthBar.update(enemyHealth);
-  
-  //displayRoundWins();
   timer();
   statsBar();
 }
@@ -87,10 +83,6 @@ function next_round_menu() {
   background(0); // Mostrar la pantalla del siguiente round
   if (currentRound <= maxRounds) {
     image(rounds[currentRound], width/2 - rounds[currentRound].width/2, height/2 - rounds[currentRound].height/2);
-  }
-  // Esperar 3 segundos antes de continuar al siguiente round
-  if (millis() - roundTimer > 3000) {
-    startNextRound(); 
   }
 }
 
@@ -111,14 +103,8 @@ function round_result_menu() {
 
   enemy.draw(); // Dibujar primero el sprite del enemigo
   chara.draw(); // Dibujar después el sprite del jugador
-
-  // Esperar 4 segundos antes de mostrar el mensaje
-  if (millis() - roundTimer > 4000) {
-    fill(0);
-    rect(0, 0, width, 100); 
-    fill(255);
-    text(roundMessage, width / 2, 50); 
-    textSize(12);
-    text("Presiona 'C' para continuar", width / 2, 80);
-  }
+  
+  song.onended(function() {
+    nextRound();
+  });
 }

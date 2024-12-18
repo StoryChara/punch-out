@@ -1,5 +1,6 @@
 function playSound(){
   song.setLoop(false);
+  battle.stop();
   song.play();
 }
 
@@ -14,10 +15,7 @@ function playReferee(){
 // ---------------------------------------------------------------------- //
 
 function battleMusic() {
-  song.stop();
-  song.setPath("resources/soundtrack/10_-_Match_BGM.mp3", () => {
-    song.loop();
-  });
+  battle.play();
 }
 
 
