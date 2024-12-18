@@ -89,7 +89,8 @@ function statsBar(){
   
   // VIDA
   push();
-  fill(0); rectMode(CORNER);
+  fill(0); stroke(0); strokeWeight(2);
+  rectMode(CORNER);
   health_lenght = 70;
   rect(198, 30, health_lenght, 30, 5); rect(283, 30, health_lenght, 30, 5);
   fill(255); rectMode(CORNERS);
@@ -103,7 +104,7 @@ function statsBar(){
   rect(188, 56, 175, 26, 5);
   textFont(pixelFont); textAlign(CENTER, CENTER);
   fill(255); stroke(0); strokeWeight(0); textSize(11);
-  formattedPoints = `Points :  000`;//formattedTime = `Points: ${points}`;
+  formattedPoints = `Points: ${score}`;
   text(formattedPoints, 275, 70);
   pop();
   

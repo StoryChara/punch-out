@@ -1,7 +1,7 @@
 let scenario, audience, logo, deco;
 let charaSprites = {}, enemySprites = {}, refereeSprites = {};
 let pixelFont;
-let score;
+let score = 0;
 let menu = "Start_Game";
 let angle = 0;
 let chara, enemy;
@@ -45,7 +45,7 @@ function preload() {
     talk1: loadImage('sprites/referee-1.png'),
     talk2: loadImage('sprites/referee-2.png'),
     talk: loadImage('sprites/referee-dialogue.png'),
-  }
+  };
   pixelFont = loadFont('resources/punch-out-nes.ttf');
   rounds[1] = loadImage('sprites/round_1.png');
   rounds[2] = loadImage('sprites/round_2.png');
@@ -54,20 +54,17 @@ function preload() {
   extraSprites = {
     heart: loadImage('sprites/heart.png'),
     star: loadImage('sprites/star.png')
-  }
+  };
 }
 
 function setup() {
   const canvas = createCanvas(500, 500);
   canvas.parent('canvas-container');
-  song.setVolume(0.5);
-  se.setVolume(0.5);
+  song.setVolume(0.25); se.setVolume(0.25);
   enemy = new Fighter("Mike Tyson", 100, 15, 25, width/2 - 25, height/2 , enemySprites, true);
   chara = new Fighter("Little Mac", 100, 10, 25, width/2 - 25, height/2 + 65, charaSprites, false);
   enemy.addEnemy(chara);
   chara.addEnemy(enemy);
-  //playerHealthBar = new HealthBar(20, 20, 100, 10, color(0, 255, 0));
-  //enemyHealthBar = new HealthBar(width - 120, 20, 100, 10, color(255, 0, 0));
 }
 
 function draw() {
@@ -118,6 +115,7 @@ function keyPressed() {
       chara.punch();
       punchSE();
       enemyHealth -= chara.attack;
+      score += floor(random(5, 15));
       if (enemyHealth <= 0) {
         enemyHealth = 0;
         playerWins++;
