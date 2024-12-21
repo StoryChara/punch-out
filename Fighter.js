@@ -45,6 +45,7 @@ class Fighter {
     if (this.stamina < 25) {
       this.stamina += deltaTime * 0.1;
     }
+    
   }
 
   punch() {
@@ -67,6 +68,7 @@ class Fighter {
       this.wait(4);
       this.moveCenter();
     } else {
+
       if (this.isPunching) {
         this.punchTimer--;
         if (this.punchTimer <= 0) {
@@ -81,6 +83,10 @@ class Fighter {
       }
       if (!this.isBlocking && this.enemy.isPunching && this.state != 'HIT') {
         this.got_hit();
+      }
+
+      if (this.CPU==true && !this.enemy.isPunching && this.state != 'HIT' ){
+        this.AI();
       }
     }
     this.draw();
@@ -102,6 +108,39 @@ class Fighter {
       menu = "Round_Result";
       roundLoseMusic();
     }
+  }
+
+  AI(){
+    this.isPunching = false; //Hay un bug de punch infinito xdd
+     //hay que optimizar variables xdd
+     /*
+     do{
+      this.block();
+     }
+    while(this.wait(4))
+    darle un tiempo de gracia para bloquear
+    */
+   
+    let choice= Math.floor(random(1, 7));
+    console.log(choice);
+    switch(choice) { //AI re basico, tal vez darle opciones segun estados del chara
+      case 1:
+        //this.moveRight();
+        this.punch();
+        break;
+      case 2:
+        //this.moveLeft();
+        this.punch();
+        break;
+      case 3:
+        this.punch();
+        break;
+      default:
+        this.block();
+        break;
+      moveCenter();
+      this.wait(4);
+    } 
   }
 
   wait(time) {
