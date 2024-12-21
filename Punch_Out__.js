@@ -73,9 +73,13 @@ function setup() {
   chara = new Fighter("Little Mac", 100, 10, 25, width/2 - 25, height/2 + 65, charaSprites, false);
   enemy.addEnemy(chara);
   chara.addEnemy(enemy);
+  playerHealth=chara.health;
+  enemyHealth=enemy.health;
+ 
 }
 
 function draw() {
+  console.log(chara.stamina);
   if (menu === "Start_Game"){
     start_game();
   } else if (menu === "Intro") {
@@ -90,6 +94,8 @@ function draw() {
     enter_menu();
   } else if (menu === "Next_Round") {
     next_round_menu();
+    chara.health=100;
+    enemy.health=100; //reset hp per round
   } else if (menu === "Round_Result") {
     round_result_menu();
   } else if (menu === "End") {
@@ -121,15 +127,8 @@ function keyPressed() {
     } else if (keyCode === UP_ARROW && chara.state == 'idle') {
       chara.punch();
       punchSE();
-      enemyHealth -= chara.attack;
-      score += 10;
-      if (enemyHealth <= 0) {
-        enemyHealth = 0;
-        playerWins++;
-        roundMessage = "Ganaste un round";
-        menu = "Round_Result";
-        roundWinMusic();
-      }
+      //enemyHealth -= chara.attack;
+      //wtf que hacia todo esto aca, esto va en logica de pj
     } else if (keyCode === DOWN_ARROW && chara.state == 'idle') {
       chara.block();
       blockingSE();
