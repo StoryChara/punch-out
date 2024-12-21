@@ -6,3 +6,4 @@
 - → para esquivar hacia la derecha.
 - ↑ para golpear al contrincante.
 - ↓ para bloquear un golpe.
+- R para reiniciar el juego.
