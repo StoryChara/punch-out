@@ -147,6 +147,8 @@ function startNextRound() {
   menu = "Fight";
   playerHealth = 100;
   enemyHealth = 100;
+  chara.health=100;
+  enemy.health=100; //reset hp per round
   chara.moveCenter();
   enemy.moveCenter();
   resetTimer();

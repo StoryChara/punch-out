@@ -13,6 +13,7 @@ class Fighter {
     this.isBlocking = false;
     this.state = 'idle';
     this.CPU = CPU;
+    this.actionCooldown = 0;
   }
 
   draw() {
@@ -64,32 +65,42 @@ class Fighter {
   }
 
   update() {
-    if (this.state == 'HIT') {
+    if (this.state === 'HIT') {
       this.wait(4);
       this.moveCenter();
-    } else {
-
-      if (this.isPunching) {
-        this.punchTimer--;
-        if (this.punchTimer <= 0) {
+  } else {
+    if (this.isPunching) {
+      this.punchTimer -= deltaTime * 0.1; 
+      if (this.punchTimer <= 0) {
           this.moveCenter();
-        }
       }
-      if (this.isBlocking) {
-        this.stamina--;
-        if (this.stamina <= 0) {
+  }
+  
+  if (this.isBlocking) {
+      this.stamina -= deltaTime * 0.05; 
+      if (this.stamina <= 0) {
           this.moveCenter();
-        }
       }
-      if (!this.isBlocking && this.enemy.isPunching && this.state != 'HIT') {
-        this.got_hit();
+  }
+  
+  if (this.state === 'dodging') {
+      this.stamina -= deltaTime * 0.05; 
+      if (this.stamina <= 0) {
+          this.moveCenter();
+      }
+  }
+
+      if (this.state !== 'dodging'&&!this.isBlocking && this.enemy.isPunching && this.state !== 'HIT') {
+          this.got_hit();
       }
 
-      if (this.CPU==true && !this.enemy.isPunching && this.state != 'HIT' ){
-        this.AI();
+      if (this.CPU  && this.state !== 'HIT') {
+          this.AI();
       }
-    }
-    this.draw();
+  }
+
+  if (this.stamina<40) this.stamina += deltaTime * 0.02;
+  this.draw();
   }
 
   addEnemy(enemy) {
@@ -99,19 +110,32 @@ class Fighter {
   got_hit() {
     this.sprite = this.sprites.left;
     this.offset = 0;
-    this.health--;
     this.state = "HIT";
-    if (this.health <= 0) {
-      this.health = 0;
+    if (this.CPU==true){
+      score += 10;
+      this.health-=5;
+    }
+    else{
+      this.health-=10;
+    }
+    if (this.health <= 0 && this.CPU==false) {
+      //this.health = 0;
       enemyWins++;
       roundMessage = "Perdiste un round";
       menu = "Round_Result";
       roundLoseMusic();
     }
-  }
+    else if (this.health <= 0 && this.CPU==true){
+      //this.health = 0;
+      playerWins++;
+      roundMessage = "Ganaste un round";
+      menu = "Round_Result";
+      roundWinMusic();
+    }
+    }
 
   AI(){
-    this.isPunching = false; //Hay un bug de punch infinito xdd
+    //this.isPunching = false; //Hay un bug de punch infinito xdd
      //hay que optimizar variables xdd
      /*
      do{
@@ -120,27 +144,39 @@ class Fighter {
     while(this.wait(4))
     darle un tiempo de gracia para bloquear
     */
+    if (this.actionCooldown > 0) {
+      this.actionCooldown -= deltaTime;
+      return; // cooldown
+  }
    
     let choice= Math.floor(random(1, 7));
     console.log(choice);
     switch(choice) { //AI re basico, tal vez darle opciones segun estados del chara
       case 1:
-        //this.moveRight();
-        this.punch();
+        this.moveRight();
+        this.wait2(3);
+        this.moveCenter();
+        //this.state='idle';
+        //this.punch();
         break;
       case 2:
-        //this.moveLeft();
-        this.punch();
+        this.moveLeft();
+        this.wait2(3);
+        this.moveCenter();
+        //this.state='idle';
+        //this.punch();
         break;
       case 3:
-        this.punch();
-        break;
-      default:
         this.block();
         break;
-      moveCenter();
-      this.wait(4);
+      default:
+        this.punch();
+        break;
+      
     } 
+    //moveCenter();
+    //this.wait(1000);
+    this.actionCooldown = 1000; // Puede variar segun dificultad idk
   }
 
   wait(time) {
@@ -151,4 +187,12 @@ class Fighter {
     }
     return true;
   }
+  wait2(time){
+    let cd=0;
+    if (this.cd > 0) {
+      this.cd -= deltaTime;
+      return; // cooldown
+  }
+  cd=time*1000;
+}
 }

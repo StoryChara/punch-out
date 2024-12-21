@@ -75,6 +75,8 @@ function fight_menu() {
   }
   enemy.update();
   chara.update();
+  playerHealth=chara.health;
+  enemyHealth=enemy.health;
   timer();
   statsBar();
 }
