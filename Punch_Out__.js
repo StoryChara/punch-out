@@ -36,6 +36,7 @@ function preload() {
 
 function setup() {
   createCanvas(500, 500);
+  frameRate(60);
   enemy = new Fighter("Mike Tyson", 200, 15,25, width/2 - 25, height/2 , enemySprites,true);
   chara = new Fighter("Little Mac", 100, 10,25, width/2 - 25, height/2 + 65,  charaSprites,false);
   enemy.addEnemy(chara);

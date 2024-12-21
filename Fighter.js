@@ -127,6 +127,7 @@ class Fighter {
     while(this.wait(4))
     darle un tiempo de gracia para bloquear
     */
+   
     let choice= Math.floor(random(1, 7));
     console.log(choice);
     switch(choice) { //AI re basico, tal vez darle opciones segun estados del chara
@@ -147,12 +148,17 @@ class Fighter {
     } 
   }
   wait(time){
-    let wtimer;
+    /*
+    if (frameCount % 60 == 0 && timer > 0) { // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
+      timer --;
+    }*/
+    let wtimer=0;
     time=time*1000;
-    while(wtimer<=time){
+    if(wtimer<=time){
       wtimer+=deltaTime;
     }
       console.log("RING!!!");
+      wtimer=0;
       return true;
   }
 }
