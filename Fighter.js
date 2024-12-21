@@ -151,18 +151,18 @@ class Fighter {
    
     let choice= Math.floor(random(1, 7));
     console.log(choice);
+    this.moveCenter();
     switch(choice) { //AI re basico, tal vez darle opciones segun estados del chara
       case 1:
         this.moveRight();
         this.wait2(3);
-        this.moveCenter();
+        
         //this.state='idle';
         //this.punch();
         break;
       case 2:
         this.moveLeft();
         this.wait2(3);
-        this.moveCenter();
         //this.state='idle';
         //this.punch();
         break;

@@ -156,22 +156,11 @@ function startNextRound() {
 
 function end_game() {
   background(0);
-  if (playerWins >= 2 || enemyWins >= 2) {
+  if (playerWins >= 2) {
     image(battle_win, 0, 0);
   } else if (currentRound > maxRounds) {
     image(battle_lose, 0, 0);
-  } else {
-    image(battle_lose, 0, 0);
-  }
-}
-
-function end_game() {
-  background(0);
-  if (playerWins >= 2 || enemyWins >= 2) {
-    image(battle_win, 0, 0);
-  } else if (currentRound > maxRounds) {
-    image(battle_lose, 0, 0);
-  } else {
+  } else if(enemyWins >= 2){
     image(battle_lose, 0, 0);
   }
 }
