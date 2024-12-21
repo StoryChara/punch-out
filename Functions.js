@@ -1,3 +1,4 @@
+let batlle_result_image;
 let time = { minutes: 0, seconds: 0 };
 
 function start_text(angle) {
@@ -131,11 +132,14 @@ function nextRound() {
     menu = "End";
     if (playerWins >= 2){
       winMusic();
+      batlle_result_image = battle_win;
     } else {
       loseMusic();
+      batlle_result_image = battle_lose;
     }
   } else if (currentRound > maxRounds) {
     menu = "End";
+    batlle_result_image = battle_lose;
   } else {
     menu = "Interlude";
     song.stop();
@@ -156,13 +160,7 @@ function startNextRound() {
 
 function end_game() {
   background(0);
-  if (playerWins >= 2) {
-    image(battle_win, 0, 0);
-  } else if (currentRound > maxRounds) {
-    image(battle_lose, 0, 0);
-  } else if(enemyWins >= 2){
-    image(battle_lose, 0, 0);
-  }
+  image(batlle_result_image, 0, 0);
 }
 
 function resetGame() {
