@@ -94,7 +94,7 @@ class Fighter {
           this.got_hit();
       }
 
-      if (this.CPU  && this.state !== 'HIT') {
+      if (this.CPU  && this.state !== 'HIT' && isRunning==true) {
           this.AI();
       }
   }
